@@ -3,20 +3,21 @@ const expressLayouts = require("express-ejs-layouts");
 
 const app = express();
 
-// Set EJS as view engine
+// View Engine Setup
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
 
-// Serve static files from "public" folder
+// Static Files
 app.use(express.static("public"));
 
-// Home route
+// Routes
 app.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
-// Start the server on port 5500
-app.listen(5500, () => {
-  console.log("Server running on http://localhost:5500");
+// PORT for local and Render
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
