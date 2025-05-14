@@ -1,6 +1,298 @@
 /******* Change Box Model ***************/
+
+/* Reset and base styles */
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+.page-wrapper {
+  border: 10px solid #0000ff;
+  margin: 40px;
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+}
+
+/* background frame image behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/site/checkerboard.jpg'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Body */
+body {
+  margin: 80px;
+  font-family: 'Orbitron', sans-serif; 
+  padding: 20px;
+  background-color: #f3f3f3;
+}
+
+/* Header */
+header {
+  margin-bottom: 30px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.siteName a {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #000;
+}
+
+#tools a {
+  text-decoration: none;
+  color: #000;
+}
+
+/* Nav */
+nav {
+  background-color: black;
+  padding: 10px 0;
+}
+
+.nav-bar {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 40px 20px;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Transparent overlay slide info */
+.car-info-overlay {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  max-width: 60%;
+  box-sizing: border-box;
+  color: #007BFF;
+}
+
+.car-info-overlay h2 {
+  margin-top: 0;
+}
+
+.car-info-overlay ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.own-button {
+  display: inline-block;
+  background-color: #007BFF;
+  color: #000000;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.own-button:hover {
+  background-color: #0056b3;
+}
+
+/* Upgrades Gallery */
+.upgrades-section h2 {
+  text-align: center;
+  margin-top: 10px;
+  color: #000;
+  max-width: none;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.upgrade-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 50px;
+  margin: 100px;
+  margin-top: -10px;
+  margin-bottom: 300px;
+  padding: 16px;
+  color: white;
+  text-align: center;
+}
+
+.upgrade-gallery figure {
+  padding: 16px;
+  background-color: #007BFF;
+  border-radius: 0;
+  color: #0000ff;
+  margin: 0;
+}
+
+.upgrade-gallery img {
+  border-radius: 1px;
+  margin-bottom: 100px;
+}
+
+figcaption {
+  font-size: 0.9rem;
+  margin-top: -100px;
+}
+
+.reviews-section {
+  padding: 50px;
+  max-width: 700px;
+  margin: 50px auto 0;
+}
+
+.reviews-section h2 {
+  text-align: center;
+  margin: 0 100px 20px 0;
+  color: #333;
+  margin-top: -40px;
+}
+
+.reviews-section ul {
+  list-style-type: disc;
+  padding-left: 80px;
+  margin: 0; 
+  margin-bottom: 400px;
+}
+
+.reviews-section li {
+  padding: 10px 0;
+  color: #000;
+}
+
+.upgrade-review-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 1px;
+  max-width: 1200px;
+  margin: 50px;
+  padding: 50px;
+margin-bottom: -350px;
+}
+
+.upgrades-section,
+.reviews-section {
+  flex: 1; /* each section takes 50% of the row */
+  display: flex;
+  flex-direction: column;
+  padding: 1px;
+  border-radius: 8px;
+}
+
+.upgrade-gallery {
+  max-width: 100%;
+}
+
+footer {
+  margin-left: 150px;
+}
+
+/* Responsive */
+@media (max-width: 678px) {
+
+  body::before {
+    display: none;
+  }
+
+  .page-wrapper {
+    border: none;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .upgrade-gallery {
+    flex-direction: column;
+    margin-left: 30px;
+  }
+
+  .upgrades-section {
+    margin-top: -370px;
+  }
+
+  .reviews-section {
+    margin-left: -20px;
+  }
+
+  .upgrade-review-wrapper {
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: -330px;
+  }
+
+body {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+  .car-info-overlay {
+    width: 40%;
+    left: -5%;
+    top: 70%;
+    padding: 12px;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .upgrade-review-wrapper {
+    flex-direction: column-reverse; /* reverses the visual order */
+  }
+
+  footer {
+    text-align: center;
+    margin-left: -50px;
+  }
 }
