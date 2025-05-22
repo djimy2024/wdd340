@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<main class="vehicle-page">
+  <h1><%= title %></h1>
+  <section class="vehicle-container">
+    <div class="vehicle-image">
+      <img src="<%= detail.inv_image %>" alt="Image of <%= detail.inv_make %> <%= detail.inv_model %>">
+    </div>
+    <div class="vehicle-details">
+      <h2>No-Haggle Price</h2>
+      <p class="price"><%= new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(detail.inv_price) %></p>
+      
+      <p><strong>Mileage:</strong> <%= new Intl.NumberFormat("en-US").format(detail.inv_miles) %></p>
+      <p><strong>Year:</strong> <%= detail.inv_year %></p>
+      <p><strong>Color:</strong> <%= detail.inv_color %></p>
+      <p><strong>Description:</strong> <%= detail.inv_description %></p>
+
+      <div class="vehicle-actions">
+        <button>Start My Purchase</button>
+        <button>Contact Us</button>
+        <button>Schedule Test Drive</button>
+        <button>Apply for Financing</button>
+      </div>
+      <p><strong>Call Us</strong></p>
+      <p class="contact-info">Call Us: <strong>801-396-7886</strong></p>
+      <p><strong>Visit Us</strong></p>
+    </div>
+  </section>
+</main>
+
