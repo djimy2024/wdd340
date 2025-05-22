@@ -68,24 +68,17 @@ nav {
   padding: 10px 0;
 }
 
-<<<<<<< HEAD
 .nav-bar ul{
-=======
-.nav-bar {
->>>>>>> 64a8ef568261530b22e6c1fa323369fa88c3926a
   list-style: none;
   display: flex;
   justify-content: space-around;
   margin: 0;
   padding: 0;
-<<<<<<< HEAD
   gap: 1rem;
   list-style: none;
-=======
->>>>>>> 64a8ef568261530b22e6c1fa323369fa88c3926a
 }
 
-.nav-bar li a {
+.nav-bar a {
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -248,7 +241,6 @@ footer {
   margin-left: 150px;
 }
 
-<<<<<<< HEAD
 .vehicle-container {
   display: flex;
   flex-wrap: wrap;
@@ -319,13 +311,15 @@ footer {
     flex: 1;
     padding-left: 2rem;
   }
-=======
-/* Responsive */
-@media (max-width: 678px) {
->>>>>>> 64a8ef568261530b22e6c1fa323369fa88c3926a
 
   body::before {
     display: none;
+  }
+
+  .nav-bar {
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
   }
 
   .page-wrapper {
