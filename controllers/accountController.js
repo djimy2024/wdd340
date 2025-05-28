@@ -7,8 +7,8 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
-     message: null,
-     errors: null
+    message: null,
+    errors: null
   });
 }
 
@@ -72,6 +72,8 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      errors: null,
+      message: null
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
@@ -84,8 +86,6 @@ async function registerAccount(req, res) {
 })
   }
 }
-
-
 
 module.exports = {
   buildLogin,

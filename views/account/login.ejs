@@ -2,20 +2,13 @@
 <main class="login-form">
   <h1><%= title %></h1>
 
-  <% /*if (message) { %>
-    <div class="flash-message"><%= message %></div>
-  <% } */%>
-
-  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+<% if (Array.isArray(errors) && errors.length > 0) { %>
   <ul>
     <% errors.forEach(error => { %>
       <li><%= error.msg %></li>
     <% }) %>
   </ul>
 <% } %>
-
-
-
 
   <form id="login-form" action="/account/login" method="post">
     <fieldset>
