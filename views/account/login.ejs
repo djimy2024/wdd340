@@ -6,17 +6,39 @@
     <div class="flash-message"><%= message %></div>
   <% } */%>
 
-  <form action="/account/login" method="post">
-    <label for="account_email">Email</label>
-    <input type="email" id="account_email" name="account_email" required>
+  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+  <ul>
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
 
-    <label for="account_password">Password</label>
-    <input type="password" id="account_password" name="account_password" required>
+
+
+
+  <form id="login-form" action="/account/login" method="post">
+    <fieldset>
+    <label for="email">Email Address:</label>
+    <input type="email" name="account_email" id="email" required />
+
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="account_password"
+      id="password"
+      required
+      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+    />
+
+    <div id="pswdBtn">Show Password</div>
 
     <button type="submit">Submit</button>
+    </fieldset>
   </form>
 
   <p>No account? <a href="/account/register">Sign-up</a></p>
+  <script src="/js/password.js"></script>
 </main>
 
 
