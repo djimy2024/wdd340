@@ -1,0 +1,108 @@
+
+/* Form label styles */
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input and select styles */
+form input[type="text"],
+form input[type="number"],
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Textarea height */
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Submit button styles */
+form button[type="submit"] {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #005fa3;
+}
+
+/* Error list styling */
+.errors {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  color: #b00020;
+}
+
+.errors li {
+  margin-bottom: 0.5rem;
+}
+
+/* Flash message */
+.flash-message {
+  background-color: #e0ffe0;
+  color: #2d7a2d;
+  border: 1px solid #a4d7a4;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  form {
+    padding: 1rem;
+  }
+
+  form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+  form label {
+    font-size: 1rem;
+  }
+
+  form input[type="text"],
+  form input[type="number"],
+  form textarea,
+  form select {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  form button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .flash-message {
+    font-size: 0.95rem;
+  }
+
+  .errors li {
+    font-size: 0.95rem;
+  }
+}
+
