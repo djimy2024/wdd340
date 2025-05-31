@@ -14,6 +14,9 @@
 <% } %>
 
   <form method="post" action="/inv/add-inventory">
+     <label for="classification_id">Classification</label>
+   <select name="classification_id" id="classification_id" required><%- classificationList %></select>
+
   <label for="inv_make">Make</label>
   <input type="text" name="inv_make" id="inv_make" value="<%= inv_make %>" required>
 
@@ -40,9 +43,6 @@
 
   <label for="inv_color">Color</label>
   <input type="text" name="inv_color" id="inv_color" value="<%= inv_color %>" required>
-
-  <label for="classification_id">Classification</label>
-   <select name="classification_id" id="classification_id" required><%= classificationList %></select>
 
   <button type="submit">Add Inventory</button>
 </form>

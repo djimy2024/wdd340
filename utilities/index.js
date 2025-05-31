@@ -126,18 +126,14 @@ Util.buildVehicleDetail = function(data) {
  *************************************** */
 Util.getClassificationDropdown = async function (selectedId = null) {
   const data = await invModel.getClassifications()
-  let dropdown = `<select name="classification_id" id="classificationList" required>`
-  dropdown += `<option value="">Choose a Classification</option>`
+  let dropdown = `<option value="">Choose a Classification</option>`
   data.rows.forEach(row => {
     dropdown += `<option value="${row.classification_id}"`
-
     if (selectedId && row.classification_id == selectedId) {
       dropdown += " selected"
     }
-
     dropdown += `>${row.classification_name}</option>`
   })
-  dropdown += `</select>`
   return dropdown
 }
 
