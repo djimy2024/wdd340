@@ -18,6 +18,8 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+const flash = require('connect-flash');
 
 /* ***********************
  * Middleware
@@ -32,6 +34,15 @@ const bodyParser = require("body-parser")
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+app.use(session({
+  secret: 'yoursecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
+app.use(flash());
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -48,6 +59,8 @@ app.use(function(req, res, next){
   next()
 })
 
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
@@ -61,6 +74,7 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+app.use("/account", accountRoute);
 
 app.use(static)
 

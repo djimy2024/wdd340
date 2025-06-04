@@ -1,0 +1,42 @@
+<main>
+  <h1>Edit Inventory</h1>
+
+  <% if (errors && errors.length > 0) { %>
+
+
+  <form action="/inv/update" method="post">
+     <label for="classification_id">Classification</label>
+   <select name="classification_id" id="classification_id" required><%- classificationList %></select>
+
+  <label for="inv_make">Make</label>
+  <input type="text" name="inv_make" id="inv_make" value="<%= inv_make %>" required>
+
+  <label for="inv_model">Model</label>
+  <input type="text" name="inv_model" id="inv_model" value="<%= inv_model %>" required>
+
+  <label for="inv_year">Year</label>
+  <input type="number" name="inv_year" id="inv_year" min="1900" max="2100" value="<%= inv_year %>" required>
+
+  <label for="inv_description">Description</label>
+  <textarea type="text" name="inv_description" id="inv_description" required><%= inv_description %></textarea>
+
+  <label for="inv_image">Image Path</label>
+  <input type="text" name="inv_image" id="inv_image" value="<%= inv_image || '/images/vehicles/no-image.png' %>" required>
+
+  <label for="inv_thumbnail">Thumbnail Path</label>
+  <input type="text" name="inv_thumbnail" id="inv_thumbnail" value="<%= inv_thumbnail || '/images/vehicles/no-image.png' %>" required>
+
+  <label for="inv_price">Price</label>
+  <input type="number" name="inv_price" id="inv_price" step="0.01" min="0" value="<%= inv_price %>" required>
+
+  <label for="inv_miles">Miles</label>
+  <input type="number" name="inv_miles" id="inv_miles" min="0" value="<%= inv_miles %>" required>
+
+  <label for="inv_color">Color</label>
+  <input type="text" name="inv_color" id="inv_color" value="<%= inv_color %>" required>
+
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+  <button type="submit">Update Vehicle</button>
+</form>
+</main>

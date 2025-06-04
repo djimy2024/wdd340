@@ -4,7 +4,11 @@ const router = express.Router();
 // Controllers & Utilities
 const utilities = require("../utilities/");
 const accountController = require("../controllers/accountController");
+console.log("buildAccountManagement exists?", typeof accountController.buildAccountManagement);
+console.log("accountController exports:", Object.keys(accountController));
+
 const regValidate = require("../utilities/account-validation");
+
 
 // Route: Login View
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
@@ -26,6 +30,12 @@ router.post(
   regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
+);
+
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccountManagement)
 );
 
 // Export router
