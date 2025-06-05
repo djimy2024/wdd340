@@ -94,4 +94,37 @@ validate.checkRegData = async (req, res, next) => {
   next()
 }
 
+// Rules pou mete ajou kont
+validate.updateRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .notEmpty()
+      .withMessage("First name is required."),
+    body("account_lastname")
+      .trim()
+      .notEmpty()
+      .withMessage("Last name is required."),
+    body("account_email")
+      .trim()
+      .isEmail()
+      .withMessage("A valid email is required."),
+  ]
+}
+
+// Middleware pou verifye done yo
+validate.checkUpdateData = (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    const nav = res.locals.nav
+    return res.render("account/update-account", {
+      title: "Update Account",
+      nav,
+      errors: errors.array(),
+      account: req.body,
+    })
+  }
+  next()
+}
+
 module.exports = validate

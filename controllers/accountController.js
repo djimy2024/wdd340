@@ -98,6 +98,13 @@ async function loginAccount(req, res) {
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
+      req.session.loggedin = true
+req.session.account_id = accountData.account_id
+req.session.account_firstname = accountData.account_firstname
+req.session.account_lastname = accountData.account_lastname
+req.session.account_email = accountData.account_email
+req.session.account_type = accountData.account_type
+
       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
       if(process.env.NODE_ENV === 'development') {
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
@@ -125,16 +132,50 @@ async function loginAccount(req, res) {
  *  Deliver Account Management View
  * ******************************/
 async function buildAccountManagement(req, res) {
+   const accountData = res.locals.accountData
   let nav = await utilities.getNav();
   const messages = req.flash("notice") || [];
   res.render("account/management", {
     title: "Account Management",
+    accountData,
     nav,
     message: messages.length > 0 ? messages[0] : "",
     errors: null,
   });
 }
 
+function logout(req, res) {
+  res.clearCookie("jwt")
+  res.redirect("/")
+}
+
+
+// Montre fòm update lan
+async function buildUpdateAccount(req, res) {
+  const accountId = parseInt(req.params.accountId)
+  const accountData = await accountModel.getAccountById(accountId)
+
+  res.render("account/update-account", {
+    title: "Update Account",
+    nav: await utilities.getNav(),
+    account: accountData,
+    errors: null,
+  })
+}
+
+// Mete ajou enfòmasyon yo
+async function updateAccount(req, res) {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
+  const updateResult = await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email)
+
+  if (updateResult) {
+    req.flash("notice", "Account updated successfully.")
+    res.redirect("/account/")
+  } else {
+    req.flash("notice", "Account update failed.")
+    res.redirect(`/account/update-account/${account_id}`)
+  }
+}
 
 
 module.exports = {
@@ -143,4 +184,6 @@ module.exports = {
   buildRegister,
   registerAccount,
   buildAccountManagement,
+  logout,
+  buildUpdateAccount, updateAccount
 };

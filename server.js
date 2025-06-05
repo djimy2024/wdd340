@@ -20,6 +20,8 @@ const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const flash = require('connect-flash');
+const checkJWT = require("./middleware/checkJWT")
+
 
 /* ***********************
  * Middleware
@@ -34,6 +36,7 @@ const flash = require('connect-flash');
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
 
 app.use(session({
   secret: 'yoursecret',
@@ -61,6 +64,7 @@ app.use(function(req, res, next){
 
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)
+app.use(checkJWT)
 
 /* ***********************
  * View Engine and Templates

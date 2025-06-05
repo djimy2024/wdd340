@@ -8,6 +8,9 @@ console.log("buildAccountManagement exists?", typeof accountController.buildAcco
 console.log("accountController exports:", Object.keys(accountController));
 
 const regValidate = require("../utilities/account-validation");
+const checkLogin = require("../middleware/checkLogin")
+const accountValidation = require("../utilities/account-validation")
+
 
 
 // Route: Login View
@@ -37,6 +40,23 @@ router.get(
   utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement)
 );
+
+router.get("/logout", accountController.logout)
+
+router.get("/update-account/:accountId", checkLogin, accountController.buildUpdateAccount)
+
+router.post("/update-account",
+  checkLogin,
+  accountValidation.updateRules(), // validation rules (si w gen yo)
+  accountValidation.checkUpdateData, // validation function
+  accountController.updateAccount
+)
+
+router.get(
+  "/update-account/:accountId",
+  checkLogin,
+  accountController.buildUpdateAccount
+)
 
 // Export router
 module.exports = router;
