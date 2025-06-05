@@ -1,0 +1,36 @@
+<main>
+  <h1>Delete</h1>
+
+    <% if (message) { %>
+    <div class="flash-message">
+      <p><%= message %></p>
+    </div>
+  <% } %>
+
+
+  <form method="POST" action="/inv/delete">
+
+     <label for="classification_id">Classification</label>
+   <select name="classification_id" id="classification_id" required><%- classificationList %></select>
+
+  <label for="inv_make">Make</label>
+  <input type="text" name="inv_make" id="inv_make" value="<%= inv_make %>" readonly>
+
+  <label for="inv_model">Model</label>
+  <input type="text" name="inv_model" id="inv_model" value="<%= inv_model %>" readonly>
+
+  <label for="inv_year">Year</label>
+  <input type="number" name="inv_year" id="inv_year" min="1900" max="2100" value="<%= inv_year %>" readonly>
+
+  <label for="inv_price">Price</label>
+  <input type="number" name="inv_price" id="inv_price" step="0.01" min="0" value="<%= inv_price %>" readonly>
+
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+  <p>Confirm Deletion - The delete is permanent.</p>
+
+  <button type="submit">Delete</button>
+  
+</form>
+
+</main>

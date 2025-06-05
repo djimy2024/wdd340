@@ -111,10 +111,25 @@ async function addClassification(classification_name) {
   }
 }
 
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+async function deleteInventoryItem(inv_id) {
+  try {
+    const sql = 'DELETE FROM inventory WHERE inv_id = $1';
+    const data = await pool.query(sql, [inv_id]);
+    return data.rowCount; // returns 1 if deleted, 0 if not found
+  } catch (error) {
+    console.error("Delete Inventory Error: ", error);
+    throw new Error("Delete Inventory Error");
+  }
+}
+
 
 module.exports = {getClassifications,
                   getInventoryByClassificationId,
                   getInventoryItemById,
                   addInventory,
                   addClassification,
-                  updateInventory};
+                  updateInventory,
+                deleteInventoryItem};
