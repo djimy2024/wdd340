@@ -7,6 +7,8 @@ const invController = require("../controllers/invController")
 // Route to build inventory by classification view
 const utilities = require("../utilities")
 const invValidate = require("../utilities/inventory-validator")
+const invValidation = require("../utilities/inventory-validator")
+
 
 // Get inventory by classification as JSON
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
@@ -50,18 +52,15 @@ router.get("/Error Link", (req, res, next) => {
 })
 
 // Route to build the edit inventory item view
-router.get(
-  "/edit/:inv_id",
-  utilities.handleErrors(invController.editInventoryView)
-)
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
 
 router.post(
   "/update",
+  invValidation.newInventoryRules(),
+  invValidation.checkUpdateData,
   invValidate.inventoryRules(),
   invValidate.checkData,
   utilities.handleErrors(invController.updateInventory)
 )
-
-
 
 module.exports = router;
