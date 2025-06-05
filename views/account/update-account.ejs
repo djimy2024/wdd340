@@ -1,3 +1,5 @@
+
+<main>
 <% if (errors && errors.length > 0) { %>
   <ul>
     <% errors.forEach(error => { %>
@@ -5,7 +7,7 @@
     <% }) %>
   </ul>
 <% } %>
-
+<!-- Change Account Form -->
 <h1>Update Your Account</h1>
 
 <form action="/account/update-account" method="post">
@@ -22,3 +24,19 @@
 
   <button type="submit">Update Account</button>
 </form>
+
+
+<!-- Change Password Form -->
+ <h1>Update Your Password</h1>
+    <form action="/account/update-password" method="post" class="form-section">
+
+        <label for="password">New Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+        <input type="hidden" name="accountId" value="<%= account.id %>" />
+        <button type="submit">Change Password</button>
+    </form>
+</main>
