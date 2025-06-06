@@ -56,7 +56,7 @@ invCont.buildManagement = async function (req, res, next) {
  *  Build Add Classification view
  * ************************** */
 invCont.buildAddClassification = async (req, res) => {
-  const nav = await utilities.buildNav()
+  const nav = await utilities.getNav()
   const classificationSelect = await utilities.getClassificationDropdown()
   res.render("inventory/add-classification", {
     title: "Add Classification",
@@ -78,6 +78,38 @@ invCont.buildAddClassification = async (req, res) => {
 
   })
 }
+
+/* ***************************
+ *  Process Add Classification
+ * ************************** */
+invCont.addClassification = async function (req, res) {
+  const { classification_name } = req.body
+  const nav = await utilities.buildNav()
+
+  try {
+    const result = await invModel.addClassification(classification_name)
+
+    if (result) {
+      req.flash("message", `${classification_name} classification successfully added.`)
+      res.redirect("/inv")
+    } else {
+      res.status(500).render("inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        errors: [{ msg: "Failed to add classification." }],
+        classification_name
+      })
+    }
+  } catch (error) {
+    console.error("Error adding classification:", error)
+    res.status(500).render("errors/500", {
+      title: "Server Error",
+      nav,
+      message: "Something went wrong on the server."
+    })
+  }
+}
+
 
 /* ***************************
  *  Build Add Inventory view

@@ -1,15 +1,17 @@
 <main>
   <h1>Add Classification</h1>
 
-  <% if (errors.length) { %>
-    <ul>
-      <% errors.forEach(e => { %><li><%= e.msg %></li><% }) %>
+  <% if (errors && errors.length > 0) { %>
+    <ul class="error">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
     </ul>
   <% } %>
 
   <form action="/inv/add-classification" method="post">
     <label for="classification_name">Classification Name</label>
     <input type="text" id="classification_name" name="classification_name" required pattern="^[a-zA-Z0-9]+$" value="<%= classification_name || '' %>">
-    <button type="submit">Add</button>
+    <button type="submit">Add Classification</button>
   </form>
 </main>

@@ -8,12 +8,29 @@ invValidate.classificationRules = () => {
   return [
     body("classification_name")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3 })
       .withMessage("Classification name is required.")
       .isAlpha()
       .withMessage("Classification name must contain only letters."),
   ];
 };
+
+invValidate.checkClassData = async (req, res, next) => {
+  const { classification_name } = req.body;
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: errors.array(),
+      classification_name,
+    });
+    return;
+  }
+  next();
+};
+
 
 // Add Inventory Validation
 invValidate.inventoryRules = () => {

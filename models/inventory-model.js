@@ -107,7 +107,8 @@ async function addClassification(classification_name) {
     const result = await pool.query(sql, [classification_name]);
     return result.rows[0]; 
   } catch (error) {
-    throw error
+    console.error("Model Error:", error);
+    return null;
   }
 }
 
