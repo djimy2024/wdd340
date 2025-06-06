@@ -61,11 +61,11 @@ async function getAccountByEmail (account_email) {
 
 async function getAccountById(account_id) {
   try {
-    const result = await pool.query(
+    const data = await pool.query(
       "SELECT * FROM public.account WHERE account_id = $1",
       [account_id]
     )
-    return result.rows[0]
+    return data.rows[0]
   } catch (error) {
     console.error("getAccountById error:", error)
     throw new Error("Unable to get account by ID.")
@@ -80,4 +80,15 @@ async function updateAccount(account_id, firstname, lastname, email) {
     [firstname, lastname, email, account_id]
   ).then(result => result.rowCount)
 }
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount}
+
+async function updatePassword(accountId, hashedPassword) {
+  const sql = `
+    UPDATE account
+    SET password = $1
+    WHERE account_id = $2
+  `;
+  return pool.query(sql, [hashedPassword, accountId]);
+}
+
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword}

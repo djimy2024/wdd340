@@ -57,10 +57,20 @@ app.use(require('connect-flash')())
   next()
 })*/
 
+app.use((req, res, next) => {
+  res.locals.messages = {
+    notice: req.flash("notice"),
+    error: req.flash("error"),
+  };
+  next();
+});
+
 app.use(function(req, res, next){
   res.locals.message = req.flash("notice")
+  res.locals.error = req.flash("error")
   next()
 })
+
 
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)

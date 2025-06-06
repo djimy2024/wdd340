@@ -94,7 +94,6 @@ validate.checkRegData = async (req, res, next) => {
   next()
 }
 
-// Rules pou mete ajou kont
 validate.updateRules = () => {
   return [
     body("account_firstname")
@@ -112,7 +111,6 @@ validate.updateRules = () => {
   ]
 }
 
-// Middleware pou verifye done yo
 validate.checkUpdateData = (req, res, next) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -125,6 +123,30 @@ validate.checkUpdateData = (req, res, next) => {
     })
   }
   next()
+}
+
+validate.passwordRules = () => {
+  return [
+    body("password")
+      .trim()
+      .isLength({ min: 12 })
+      .withMessage("Password must be at least 12 characters.")
+      .matches("[0-9]")
+      .withMessage("Password must contain at least one number.")
+      .matches("[A-Z]")
+      .withMessage("Password must contain at least one uppercase letter.")
+      .matches("[^a-zA-Z0-9]")
+      .withMessage("Password must contain at least one special character."),
+  ];
+},
+
+validate.checkPasswordData = (req, res, next) => {
+   const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash("notice", errors.array().map(err => err.msg).join("<br>"));
+    return res.redirect("/account/update-account/" + req.body.accountId);
+  }
+  next();
 }
 
 module.exports = validate

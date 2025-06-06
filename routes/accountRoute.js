@@ -10,7 +10,7 @@ console.log("accountController exports:", Object.keys(accountController));
 const regValidate = require("../utilities/account-validation");
 const checkLogin = require("../middleware/checkLogin")
 const accountValidation = require("../utilities/account-validation")
-
+const passwordValidation = require("../utilities/account-validation")
 
 
 // Route: Login View
@@ -41,9 +41,16 @@ router.get(
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
-router.get("/logout", accountController.logout)
+router.get("/logout", accountController.logoutAccount)
 
-router.get("/update-account/:accountId", checkLogin, accountController.buildUpdateAccount)
+router.post(
+  "/update-password",
+  checkLogin,
+  passwordValidation.passwordRules(),
+  passwordValidation.checkPasswordData,
+  utilities.handleErrors(accountController.updatePassword)
+)
+
 
 router.post("/update-account",
   checkLogin,
@@ -54,8 +61,8 @@ router.post("/update-account",
 
 router.get(
   "/update-account/:accountId",
-  checkLogin,
-  accountController.buildUpdateAccount
+   utilities.checkLogin, 
+  utilities.handleErrors(accountController.buildUpdateAccount)
 )
 
 // Export router

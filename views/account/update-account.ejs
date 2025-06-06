@@ -1,16 +1,26 @@
 
 <main>
-<% if (errors && errors.length > 0) { %>
-  <ul>
-    <% errors.forEach(error => { %>
-      <li><%= error.msg %></li>
-    <% }) %>
-  </ul>
-<% } %>
+ <% if (errors && errors.length > 0) { %>
+      <div class="error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <% if (message) { %>
+      <div class="message">
+        <p><%= message %></p>
+      </div>
+    <% } %>
+
 <!-- Change Account Form -->
-<h1>Update Your Account</h1>
 
 <form action="/account/update-account" method="post">
+  <fieldset>
+    <legend><h1>Update Your Account</h1></legend>
   <label for="account_firstname">First Name</label>
   <input type="text" id="account_firstname" name="account_firstname" value="<%= account.account_firstname %>" required>
 
@@ -23,20 +33,33 @@
   <input type="hidden" name="account_id" value="<%= account.account_id %>">
 
   <button type="submit">Update Account</button>
+  </fieldset>
 </form>
 
 
 <!-- Change Password Form -->
- <h1>Update Your Password</h1>
-    <form action="/account/update-password" method="post" class="form-section">
 
-        <label for="password">New Password</label>
-        <input type="password" id="password" name="password" required />
+ 
 
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required />
+   <form action="/account/update-password" method="post" class="form-section">
+  <fieldset>
+    <legend><h1>Update Your Password</h1></legend>
 
-        <input type="hidden" name="accountId" value="<%= account.id %>" />
-        <button type="submit">Change Password</button>
-    </form>
+    <label for="password">New Password</label>
+    <input type="password" id="password" name="password" minlength="12"
+      pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])[\S]+" required />
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" minlength="12"
+      pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])[\S]+" required />
+
+    <input type="hidden" name="accountId" value="<%= account.account_id %>" />
+
+    <button type="submit">Change Password</button>
+
+    <p>
+      Entering a new password will replace your current one. Passwords must be at least 12 characters long and contain at least one number, one uppercase letter, and one special character.
+    </p>
+  </fieldset>
+</form>
 </main>

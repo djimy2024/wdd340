@@ -144,13 +144,19 @@ async function buildAccountManagement(req, res) {
   });
 }
 
-function logout(req, res) {
-  res.clearCookie("jwt")
-  res.redirect("/")
+const logoutAccount = async (req, res) => {
+  try {
+    res.clearCookie("jwt")
+    req.flash("notice", "You have been logged out.")
+    res.redirect("/")
+  } catch (error) {
+    console.error("Logout failed:", error)
+    req.flash("error", "Unable to logout. Please try again.")
+    res.redirect("/account")
+  }
 }
 
 
-// Montre fòm update lan
 async function buildUpdateAccount(req, res) {
   const accountId = parseInt(req.params.accountId)
   const accountData = await accountModel.getAccountById(accountId)
@@ -163,7 +169,7 @@ async function buildUpdateAccount(req, res) {
   })
 }
 
-// Mete ajou enfòmasyon yo
+
 async function updateAccount(req, res) {
   const { account_id, account_firstname, account_lastname, account_email } = req.body
   const updateResult = await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email)
@@ -178,12 +184,61 @@ async function updateAccount(req, res) {
 }
 
 
+async function updatePassword(req, res) {
+   console.log("Received password update POST request");
+  const { password, confirmPassword, accountId } = req.body;
+   console.log("Form data:", req.body);
+  const errors = [];
+
+  if (!password || password.length < 12) {
+    errors.push("Password must be at least 12 characters long.");
+  }
+  if (password !== confirmPassword) {
+    errors.push("Passwords do not match.");
+  }
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{12,}$/;
+  if (!passwordRegex.test(password)) {
+    errors.push("Password must contain at least one uppercase letter, one number, and one special character.");
+  }
+
+  if (errors.length > 0) {
+    try {
+      const accountData = await accountModel.getAccountById(accountId);
+
+      return res.status(400).render("account/update-account", {
+        title: "Update Account",
+        nav: await utilities.getNav(),
+        account: accountData,
+        errors: errors
+      });
+    } catch (err) {
+      console.error("Error retrieving account data:", err);
+      req.flash("notice", "Something went wrong. Please try again.");
+res.redirect("/account/update-account/" + accountId);
+
+    }
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await accountModel.updatePassword(accountId, hashedPassword);
+    req.flash("notice", "Password updated successfully.");
+    res.redirect("/account");
+  } catch (err) {
+    console.error("Error updating password:", err);
+   req.flash("notice", "Something went wrong. Please try again.");
+res.redirect("/account/update-account/" + accountId);
+
+  }
+}
+
+
 module.exports = {
   buildLogin,
   loginAccount,
   buildRegister,
   registerAccount,
   buildAccountManagement,
-  logout,
-  buildUpdateAccount, updateAccount
+  logoutAccount,
+  buildUpdateAccount, updateAccount, updatePassword
 };
