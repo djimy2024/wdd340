@@ -1,0 +1,13 @@
+<% let title = "Customer Inquiries"; %>
+<h2>Customer Inquiries</h2>
+<ul>
+  <% inquiries.forEach(inquiry => { %>
+    <li>
+      <strong><%= inquiry.customer_name %></strong> (<%= inquiry.customer_email %>)<br>
+      About vehicle ID: <%= inquiry.inv_id %><br>
+      <em><%= inquiry.message %></em><br>
+      <small>Submitted on <%= new Date(inquiry.created_at).toLocaleString() %></small>
+    </li>
+    <hr>
+  <% }) %>
+</ul>

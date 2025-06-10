@@ -21,6 +21,7 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const flash = require('connect-flash');
 const checkJWT = require("./middleware/checkJWT")
+const inquiryRoutes = require('./routes/inquiry');
 
 
 /* ***********************
@@ -100,6 +101,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
+app.use("/inquiry", inquiryRoutes)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
