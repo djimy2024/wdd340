@@ -20,7 +20,7 @@ router.post('/submit', inquiryController.submitInquiry);
 // Thank You Page Route
 router.get("/thank-you", async (req, res) => {
   const nav = await utilities.getNav();
-  res.render("inquiry/thank-you", {
+  res.render("thank-you", {
     title: "Thank You",
     nav,
     message: "Your inquiry has been submitted. We’ll contact you shortly!"

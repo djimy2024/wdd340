@@ -17,7 +17,7 @@ async function submitInquiry(req, res) {
   try {
     await createInquiry({ inv_id, customer_name, customer_email, message });
     req.flash("notice", "Inquiry submitted successfully!");
-    res.redirect("/");
+    res.redirect("/inquiry/thank-you");
   } catch (error) {
     console.error("Inquiry insert error:", error);
     res.status(500).render("errors/error", {

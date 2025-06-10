@@ -468,7 +468,6 @@ form {
   max-width: 500px;
   margin: 2rem auto;
   padding: 1.5rem 2rem;
-  background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -523,8 +522,29 @@ form button[type="submit"]:active {
 form label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-weight: 300;
   color: #333;
+}
+
+.thank-you-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f4f4f4;
+  border-radius: 10px;
+  text-align: center;
+}
+.thank-you-page h1 {
+  color: #2c3e50;
+}
+.thank-you-page a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #3498db;
+  text-decoration: none;
+}
+.thank-you-page a:hover {
+  text-decoration: underline;
 }
 
 
