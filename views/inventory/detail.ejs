@@ -26,13 +26,16 @@
     </div>
   </section>
 
-<h3>Contact Us About This Vehicle</h3>
+
 <form action="/inquiry/submit" method="POST">
+  <fieldset>
+    <legend><h3>Contact Us About This Vehicle</h3></legend>
   <input type="hidden" name="inv_id" value="<%= detail.inv_id %>">
   <input type="text" name="customer_name" placeholder="Your Name" required>
   <input type="email" name="customer_email" placeholder="Your Email" required>
   <textarea name="message" placeholder="Your Message" required></textarea>
   <button type="submit">Submit Inquiry</button>
+  </fieldset>
 </form>
 
 </main>
